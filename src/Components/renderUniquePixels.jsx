@@ -1,38 +1,28 @@
-import React from 'react';
-import { range } from './../Utilities/rangeofNumbers';
-import { getRandomInt } from './../Utilities/getRandomInt';
+import React from "react";
+import { uniqueCombinations } from "../Utilities/uniqueCombinations";
 
-const RenderUniquePixels = ({imageHeight, imageWidth}) => {
-    let red = 0;
-    let blue = 0;
-    let green = 0; 
+const RenderUniquePixels = ({ imageHeight, imageWidth }) => {
 
-    const rangeOfPixels = range(imageHeight * imageWidth);
-
-    return ( 
+  const rebCombinations = uniqueCombinations(imageHeight, imageWidth);
+  
+  return (
+    <div
+      className="card-body"
+      style={{ height: `${imageHeight}px`, width: `${imageWidth}px` }}
+    >
+      {rebCombinations.map(color =>
         <div
-        className="card-body"
-        style={{ height: `${imageHeight}px`, width: `${imageWidth}px` }}
-        >
-        {rangeOfPixels.map((element) => {
-            red = getRandomInt(0, 256);
-            green = getRandomInt(0, 256);
-            blue = getRandomInt(0, 256);
+          key={color}
+          style={{
+            backgroundColor: `rgba(${color[0]}, ${color[1]}, ${color[2]})`,
+            height: "1px",
+            width: "1px",
+            float: "right",
+          }}
+        />
+      )}
+    </div>
+  );
+};
 
-            return (
-            <div
-                key={element}
-                style={{
-                backgroundColor: `rgb(${red}, ${green}, ${blue})`,
-                height: "1px",
-                width: "1px",
-                float: "right",
-                }}
-            />
-            );
-        })}
-        </div>
-    );
-}
- 
 export default RenderUniquePixels;
